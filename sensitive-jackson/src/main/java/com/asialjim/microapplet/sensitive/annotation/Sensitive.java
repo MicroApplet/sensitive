@@ -19,9 +19,8 @@ package com.asialjim.microapplet.sensitive.annotation;
 import com.asialjim.microapplet.sensitive.handler.SensitiveType;
 import com.asialjim.microapplet.sensitive.jackson.SensitiveDeserializer;
 import com.asialjim.microapplet.sensitive.jackson.SensitiveSerializer;
-import com.fasterxml.jackson.annotation.JacksonAnnotationsInside;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import tools.jackson.databind.annotation.JsonDeserialize;
+import tools.jackson.databind.annotation.JsonSerialize;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -35,7 +34,6 @@ import java.lang.annotation.Target;
  * @version 1.0
  * @since 2025/11/17, &nbsp;&nbsp; <em>version:1.0</em>
  */
-@JacksonAnnotationsInside
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 @JsonSerialize(using = SensitiveSerializer.class)

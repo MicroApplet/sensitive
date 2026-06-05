@@ -19,18 +19,15 @@ package com.asialjim.microapplet.sensitive.jackson;
 import com.asialjim.microapplet.sensitive.annotation.Sensitive;
 import com.asialjim.microapplet.sensitive.encrypt.EncryptionContextBean;
 import com.asialjim.microapplet.sensitive.encrypt.EncryptionResult;
-import com.asialjim.microapplet.sensitive.handler.SensitiveHandler;
-import com.fasterxml.jackson.core.JacksonException;
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.databind.*;
-import com.fasterxml.jackson.databind.deser.ContextualDeserializer;
 import org.apache.commons.lang3.StringUtils;
+import tools.jackson.core.JacksonException;
+import tools.jackson.core.JsonParser;
+import tools.jackson.databind.*;
 
-import java.io.IOException;
 import java.util.Objects;
 
 @SuppressWarnings("unused")
-public class SensitiveDeserializer extends JsonDeserializer<String> implements ContextualDeserializer {
+public class SensitiveDeserializer extends ValueDeserializer<String> {
     private final Sensitive sensitive;
 
     public SensitiveDeserializer() {
@@ -38,7 +35,7 @@ public class SensitiveDeserializer extends JsonDeserializer<String> implements C
     }
 
     @Override
-    public String deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JacksonException {
+    public String deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws JacksonException {
         String valueAsString = jsonParser.getValueAsString();
         if (StringUtils.isBlank(valueAsString))
             return valueAsString;
@@ -64,7 +61,7 @@ public class SensitiveDeserializer extends JsonDeserializer<String> implements C
 
 
     @Override
-    public JsonDeserializer<?> createContextual(DeserializationContext deserializationContext, BeanProperty beanProperty) throws JsonMappingException {
+    public ValueDeserializer<?> createContextual(DeserializationContext deserializationContext, BeanProperty beanProperty) {
         if (Objects.isNull(beanProperty))
             return this;
         Sensitive annotation = beanProperty.getAnnotation(Sensitive.class);

@@ -19,7 +19,7 @@ package com.asialjim.microapplet.sensitive;
 import com.asialjim.microapplet.sensitive.annotation.Sensitive;
 import com.asialjim.microapplet.sensitive.encrypt.*;
 import com.asialjim.microapplet.sensitive.handler.*;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 import lombok.Data;
 import lombok.SneakyThrows;
 import org.junit.Before;

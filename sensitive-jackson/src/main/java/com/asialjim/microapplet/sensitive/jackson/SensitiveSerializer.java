@@ -19,14 +19,14 @@ package com.asialjim.microapplet.sensitive.jackson;
 import com.asialjim.microapplet.sensitive.annotation.Sensitive;
 import com.asialjim.microapplet.sensitive.encrypt.EncryptionContextBean;
 import com.asialjim.microapplet.sensitive.encrypt.EncryptionResult;
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.databind.BeanProperty;
-import com.fasterxml.jackson.databind.JsonSerializer;
-import com.fasterxml.jackson.databind.SerializerProvider;
-import com.fasterxml.jackson.databind.ser.ContextualSerializer;
 import org.apache.commons.lang3.StringUtils;
+import tools.jackson.core.JacksonException;
+import tools.jackson.core.JsonGenerator;
+import tools.jackson.databind.BeanProperty;
+import tools.jackson.databind.SerializationContext;
+import tools.jackson.databind.ValueSerializer;
+import tools.jackson.databind.ser.std.StdSerializer;
 
-import java.io.IOException;
 import java.util.Objects;
 
 /**
@@ -37,21 +37,28 @@ import java.util.Objects;
  * @since 2025/11/17, &nbsp;&nbsp; <em>version:1.0</em>
  */
 @SuppressWarnings("unused")
-public class SensitiveSerializer extends JsonSerializer<String> implements ContextualSerializer {
+public class SensitiveSerializer extends StdSerializer<String> {
     private final Sensitive sensitive;
 
     public SensitiveSerializer() {
-        this(null);
+        super(String.class);
+        this.sensitive = null;
     }
 
     public SensitiveSerializer(Sensitive sensitive) {
+        super(String.class);
         this.sensitive = sensitive;
     }
 
 
     @Override
-    public void serialize(String s, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
+    public void serialize(String s, JsonGenerator jsonGenerator, SerializationContext ctxt) throws JacksonException {
         if (StringUtils.isBlank(s)) {
+            jsonGenerator.writeString(s);
+            return;
+        }
+
+        if (Objects.isNull(this.sensitive)) {
             jsonGenerator.writeString(s);
             return;
         }
@@ -63,7 +70,7 @@ public class SensitiveSerializer extends JsonSerializer<String> implements Conte
     }
 
     @Override
-    public JsonSerializer<?> createContextual(SerializerProvider serializerProvider, BeanProperty beanProperty) {
+    public ValueSerializer<?> createContextual(SerializationContext serializationContext, BeanProperty beanProperty) {
         if (Objects.isNull(beanProperty))
             return this;
 
