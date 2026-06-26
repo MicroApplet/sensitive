@@ -78,7 +78,7 @@ Spring Boot集成模块，提供自动配置功能：
 <dependency>
     <groupId>com.asialjim.microapplet</groupId>
     <artifactId>sensitive-spring</artifactId>
-    <version>3.0.0-SNAPSHOT</version>
+    <version>4.0.0-SNAPSHOT</version>
 </dependency>
 ```
 
@@ -87,7 +87,7 @@ Spring Boot集成模块，提供自动配置功能：
 <dependency>
     <groupId>com.asialjim.microapplet</groupId>
     <artifactId>sensitive-jackson</artifactId>
-    <version>3.0.0-SNAPSHOT</version>
+    <version>4.0.0-SNAPSHOT</version>
 </dependency>
 ```
 
@@ -96,7 +96,7 @@ Spring Boot集成模块，提供自动配置功能：
 <dependency>
     <groupId>com.asialjim.microapplet</groupId>
     <artifactId>sensitive-core</artifactId>
-    <version>3.0.0-SNAPSHOT</version>
+    <version>4.0.0-SNAPSHOT</version>
 </dependency>
 ```
 

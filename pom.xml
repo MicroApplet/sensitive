@@ -23,7 +23,7 @@
 
     <groupId>com.asialjim.microapplet.sensitive</groupId>
     <artifactId>sensitive</artifactId>
-    <version>3.0.0-SNAPSHOT</version>
+    <version>4.0.0-SNAPSHOT</version>
     <name>Sensitive</name>
 
     <description>Sensitive Framework</description>
